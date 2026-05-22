@@ -4,6 +4,8 @@
   --primary: #8B5CF6;
   --text: #2D3748;
   --text-secondary: #718096;
+  --despesa: #de062d;
+  --receita: #37f4b5;
 }
 
 * {
@@ -28,4 +30,57 @@ body {
     text-align: center;
     margin-top: 15px;
     padding-bottom: 15px;
+}
+
+main {
+    display: grid;
+    grid-template-columns: auto 300px 1fr auto;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+header#ficha {
+    height: 84vh;
+    padding: 20px;
+    margin: 15px;
+    background-color: var(--primary);
+    border-radius: 20px;
+    grid-column: 2;
+}
+
+header#ficha li {
+    list-style-type: none;
+}
+
+header#ficha a {
+    color: var(--bg);
+    text-decoration: none;
+}
+
+div#RCPContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 70px;
+    margin-top: 50px;
+
+}
+
+div#RCPContainer .rcp {
+    align-content: space-between;
+    height: 100px;
+    width: 200px;
+    border-radius: 20px;
+}
+
+div#receitas {
+    background-color: #8be7c8;
+}
+
+div#despesas {
+    background-color: #d64b64;
+}
+
+div#saldoTotal {
+    background-color: #b298f0;
 }
