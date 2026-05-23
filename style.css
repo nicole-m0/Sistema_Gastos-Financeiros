@@ -17,6 +17,7 @@
 body {
     background-color: var(--bg);
     color: var(--text);
+    height: 100vh;
 }
 
 .title {
@@ -35,8 +36,12 @@ body {
 main {
     display: grid;
     grid-template-columns: auto 300px 1fr auto;
+    grid-template-rows: repeat(2, 30%);
     gap: 20px;
     margin-top: 20px;
+    align-content: stretch;
+    align-items: baseline;
+    justify-items: start;
 }
 
 header#ficha {
@@ -83,4 +88,8 @@ div#despesas {
 
 div#saldoTotal {
     background-color: #b298f0;
+}
+
+div#formContainer {
+    grid-column: 3;
 }
