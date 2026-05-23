@@ -38,4 +38,6 @@ addBtn.addEventListener("click", (event) => {
     descricao.value = "";
     valor.value = "";
     categoria.value = "";
-})
+});
+
+// 2 - adicionar os números em receita/despesa/saldo
