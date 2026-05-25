@@ -15,7 +15,7 @@
     <main>
         <header id="ficha">
             <nav id="menu">
-                <ul>
+                <ul id="ulFicha">
                     <li><a href="#"><i class="fa-solid fa-moon"></i>Darkligth Theme</a></li>
                     <li><a href="#"><i class="fa-solid fa-arrow-up"></i>Entradas</a></li>
                     <li><a href="#"><i class="fa-solid fa-arrow-down"></i>Saídas</a></li>
@@ -26,23 +26,22 @@
         <div id="content">
             <div id="RCPContainer">
                 <div id="receitas" class="rcp">
-                    <i class="fa-solid fa-arrow-up"></i>
+                    <i class="fa-solid fa-arrow-up" style="color: #37f4b5;"></i>
                     <p>Receitas</p>
                     <p id="valoReceita">0</p>
                 </div>
                 <div id="despesas" class="rcp">
-                    <i class="fa-solid fa-arrow-down"></i>
+                    <i class="fa-solid fa-arrow-down" style="color: #de062d;"></i>
                     <p>Despesas</p>
                     <p id="valorDespesa">0</p>
                 </div>
                 <div id="saldoTotal" class="rcp">
-                    <i class="fa-solid fa-sack-dollar"></i>
+                    <i class="fa-solid fa-sack-dollar" style="color: #8B5CF6;"></i>
                     <p>Saldo Total</p>
                     <p id="valorsaldo">0</p>
                 </div>
             </div>
             <div id="formContainer">
-                <h2>Histórico</h2>
                 <form action="">
                     <label for="descricao">Descrição: </label>
                     <input type="text" name="descricao" id="descricao" placeholder="Ex: mercado, salário..."> <br>
@@ -57,6 +56,9 @@
                 </form>
             </div>
             <div id="listContainer">
+                <h2>Histórico</h2>
+
+                <ul id="historicoLista"></ul>
             </div>
         </div>
     </main>

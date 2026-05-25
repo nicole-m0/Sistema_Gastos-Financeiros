@@ -1,10 +1,9 @@
-// 1 - criar a lista ao adicionar no input
-
 const addBtn = document.querySelector("#btnAdd");
 
 addBtn.addEventListener("click", (event) => {
     event.preventDefault();
-    var lista = document.createElement("ul");
+
+    var lista = document.querySelector("#historicoLista");
     var li = document.createElement("li");
 
     var descricao = document.querySelector("#descricao");
@@ -19,12 +18,14 @@ addBtn.addEventListener("click", (event) => {
     descricaoTexto.textContent = descricaoInput + " - ";
 
     const valorTexto = document.createElement("span");
-    valorTexto.textContent = `R$ ${valorInput}`;
 
     if(categoriaInput === "receita"){
+        valorTexto.textContent = `+ R$ ${valorInput}`;
         valorTexto.style.color = "#37f4b5";
     }
+
     if(categoriaInput === "despesa"){
+        valorTexto.textContent = `- R$ ${valorInput}`;
         valorTexto.style.color = "#de062d";
     }
 
@@ -33,11 +34,9 @@ addBtn.addEventListener("click", (event) => {
 
     lista.appendChild(li);
 
-    document.body.appendChild(lista);
-
     descricao.value = "";
     valor.value = "";
     categoria.value = "";
 });
 
-// 2 - adicionar os números em receita/despesa/saldo
+// adicionar os valores em receita/despesa/total

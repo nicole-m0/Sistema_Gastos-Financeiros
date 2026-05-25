@@ -35,20 +35,26 @@ body {
 }
 
 main {
-    display: grid;
-    grid-template-columns: 220px 1fr;
     gap: 30px;
-
+    display: flex;
+    flex-direction: column;
     width: 90%;
     margin: 20px auto;
+    align-items: center;
+}
+
+ul {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
 }
 
 header#ficha {
-    height: 84vh;
     padding: 20px;
     margin: 15px;
     background-color: var(--primary);
-    border-radius: 20px;
+    border-radius: 50px;
+    width: 800px;
 }
 
 header#ficha li {
@@ -58,6 +64,13 @@ header#ficha li {
 header#ficha a {
     color: var(--bg);
     text-decoration: none;
+}
+
+header#ficha a:hover{
+    background-color: var(--bg);
+    color: var(--primary);
+    padding: 8px;
+    border-radius: 15px;
 }
 
 .content {
@@ -91,6 +104,55 @@ div#RCPContainer .rcp {
 
 div#formContainer {
     justify-self: center;
-    grid-column: 2;
     margin-top: 100px;
+    width: 800px;
+    background-color: var(--card);
+    border-radius: 20px;
+}
+
+div#formContainer form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+div#formContainer form input,select, button{
+    height: 35px;
+    width: 600px;
+    border-radius: 10px;
+    border: 2px solid var(--primary);
+    outline: none;
+}
+
+button {
+    background-color: var(--primary);
+    color: var(--bg);
+}
+button:hover{
+    background-color: var(--bg);
+    color: var(--primary);
+}
+
+div#listContainer {
+    width: 800px;
+    background-color: var(--card);
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+div#listContainer h2 {
+    color: var(--primary);
+    margin: 20px auto 20px auto;
+    text-align: center;
+}
+
+div#listContainer ul#historicoLista{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 5px 35px 5px 35px;
 }
