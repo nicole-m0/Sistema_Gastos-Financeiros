@@ -3,66 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/68415d66c2.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-</head>
-<body class="darkmode">
-    <div class="title">
-        <h1>Minhas Finanças</h1>
-    </div>
 
-    <main>
+    <script src="https://kit.fontawesome.com/68415d66c2.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <title>Minhas Finanças</title>
+</head>
+
+<body class="darkmode">
+
+    <section id="allSection">
+
+        <!-- SIDEBAR -->
         <header id="ficha">
+
             <nav id="menu">
                 <ul id="ulFicha">
-                    <li><a href="#"><i class="fa-solid fa-moon"></i>Darkligth Theme</a></li>
+                    <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i>Pesquisar</a></li>
+                    <li><a href="#"><i class="fa-solid fa-moon"></i>DarkLight Theme</a></li>
                     <li><a href="#"><i class="fa-solid fa-arrow-up"></i>Entradas</a></li>
                     <li><a href="#"><i class="fa-solid fa-arrow-down"></i>Saídas</a></li>
                     <li><a href="#"><i class="fa-solid fa-list"></i>Lista Completa</a></li>
+                    <li><a href="#"><i class="fa-solid fa-file-arrow-down"></i>Exportar PDF</a></li>
                 </ul>
             </nav>
+
         </header>
-        <div id="content">
+
+        <!-- CONTEÚDO -->
+        <main id="content">
+
+            <!-- TÍTULO -->
+            <div class="title">
+                <h1>Minhas Finanças</h1>
+            </div>
+
+            <!-- CARDS -->
             <div id="RCPContainer">
+
                 <div id="receitas" class="rcp">
                     <i class="fa-solid fa-arrow-up" style="color: #37f4b5;"></i>
                     <p>Receitas</p>
-                    <p id="valoReceita" style="color: #37f4b5;">0</p>
+                    <p id="valorReceita" style="color: #37f4b5;">0</p>
                 </div>
+
                 <div id="despesas" class="rcp">
                     <i class="fa-solid fa-arrow-down" style="color: #de062d;"></i>
                     <p>Despesas</p>
                     <p id="valorDespesa" style="color: #de062d;">0</p>
                 </div>
+
                 <div id="saldoTotal" class="rcp">
                     <i class="fa-solid fa-sack-dollar" style="color: #3f194d;"></i>
                     <p>Saldo Total</p>
                     <p id="valorSaldo" style="color: #3f194d;">0</p>
                 </div>
+
             </div>
+
+            <!-- FORM -->
             <div id="formContainer">
+
                 <form action="">
-                    <label for="descricao">Descrição: </label>
-                    <input type="text" name="descricao" id="descricao" placeholder="Ex: mercado, salário..."> <br>
-                    <label for="valor">valor (R$): </label>
-                    <input type="number" name="valor" id="valor" placeholder="0,00"> <br>
+
+                    <label for="descricao">Descrição:</label>
+
+                    <input
+                        type="text"
+                        name="descricao"
+                        id="descricao"
+                        placeholder="Ex: mercado, salário..."
+                    >
+
+                    <label for="valor">Valor (R$):</label>
+
+                    <input
+                        type="number"
+                        name="valor"
+                        id="valor"
+                        placeholder="0,00"
+                    >
+
                     <label for="categoria">Categoria</label>
+
                     <select name="categoria" id="categoria">
                         <option value="receita">Receita</option>
                         <option value="despesa">Despesa</option>
-                    </select> <br>
-                    <button id="btnAdd"><i class="fa-solid fa-plus"></i> Adicionar</button>
+                    </select>
+
+                    <button id="btnAdd">
+                        <i class="fa-solid fa-plus"></i>
+                        Adicionar
+                    </button>
+
                 </form>
+
             </div>
+
+            <!-- HISTÓRICO -->
             <div id="listContainer">
+
                 <h2>Histórico</h2>
 
                 <ul id="historicoLista"></ul>
+
             </div>
-        </div>
-    </main>
+
+        </main>
+
+    </section>
 
     <script src="script.js"></script>
+
 </body>
 </html>

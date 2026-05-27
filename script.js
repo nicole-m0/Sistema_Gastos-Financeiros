@@ -4,11 +4,13 @@
 
 
 const valorReceita = document.querySelector("#valorReceita");
-    const valorDespesa = document.querySelector("#valorDespesa");
-    const valorSaldo = document.querySelector("#valorSaldo");
-    let contadorReceita = 0;
-    let contadorDespesa = 0;
-    let contadorsaldo = 0;
+const valorDespesa = document.querySelector("#valorDespesa");
+const valorSaldo = document.querySelector("#valorSaldo");
+let contadorReceita = 0;
+let contadorDespesa = 0;
+let contadorSaldo = 0;
+
+var historicoSalvo = JSON.parse(localStorage.getItem("historicoLista")) || [];
 
 // Adicionar receita/despesa
 const addBtn = document.querySelector("#btnAdd");
@@ -24,35 +26,46 @@ addBtn.addEventListener("click", (event) => {
     var categoria = document.querySelector("#categoria");
     // valor digitado
     var descricaoInput = descricao.value;
-    var valorInput = valor.value;
+    var valorInput = Number(valor.value);
     var categoriaInput = categoria.value;
+
+    const transacao = {
+        descricao: descricaoInput,
+        valor: valorInput,
+        categoria: categoriaInput
+    }
+
+    historicoSalvo.push(transacao);
+    localStorage.setItem("historicoLista", JSON.stringify(historicoSalvo));
+
     // concatenação e criação dentro do histórico
     const descricaoTexto = document.createElement("span");
     descricaoTexto.textContent = descricaoInput + " - ";
 
     const valorTexto = document.createElement("span");
 
+    console.log(valorInput);
+    console.log(categoriaInput);
+
     if(categoriaInput === "receita"){
         valorTexto.textContent = `+ R$ ${valorInput}`;
         valorTexto.style.color = "#37f4b5";
 
         contadorReceita += valorInput;
-        contadorsaldo += valorInput;
+        contadorSaldo += valorInput;
+        valorReceita.textContent = contadorReceita;
+        valorSaldo.textContent = contadorSaldo;
     }
-
-    valorReceita.textContent = contadorReceita;
-    valorSaldo.textContent = contadorsaldo;
 
     if(categoriaInput === "despesa"){
         valorTexto.textContent = `- R$ ${valorInput}`;
         valorTexto.style.color = "#de062d";
 
         contadorDespesa += valorInput;
-        contadorsaldo -= valorInput;
+        contadorSaldo -= valorInput;
+        valorDespesa.textContent = contadorDespesa;
+        valorSaldo.textContent = contadorSaldo
     }
-
-    valorDespesa.textContent = contadorDespesa;
-    valorSaldo.textContent = contadorsaldo
 
     li.appendChild(descricaoTexto);
     li.appendChild(valorTexto);
@@ -61,10 +74,48 @@ addBtn.addEventListener("click", (event) => {
 
     descricao.value = "";
     valor.value = "";
-    categoria.value = "";
-
-
 });
 
-// contadorP será o <p>, e contadorValor será = 0 ... caso receita/despesa seja adicionada, pega o valorInput += contador, e depois transforma para texto ao <p> (appendChild)
-// para receita/saldo(+), despesa/saldo(-)
+
+// localstorage
+function carregarHistorico() {
+    historicoSalvo.forEach((transacao) => {
+    let contadorReceita = 0;
+    let contadorDespesa = 0;
+    let contadorSaldo = 0;
+    var lista = document.querySelector("#historicoLista");
+    var li = document.createElement("li");
+
+    // concatenação e criação dentro do histórico
+    const descricaoTexto = document.createElement("span");
+    descricaoTexto.textContent = transacao.descricao + " - ";
+
+    const valorTexto = document.createElement("span");
+
+    if(transacao.categoria === "receita"){
+        valorTexto.textContent = `+ R$ ${transacao.valor}`;
+        valorTexto.style.color = "#37f4b5";
+
+        contadorReceita += transacao.valor;
+        contadorSaldo += transacao.valor;
+        valorReceita.textContent = contadorReceita;
+        valorSaldo.textContent = contadorSaldo;
+    }
+
+    if(transacao.categoria === "despesa"){
+        valorTexto.textContent = `- R$ ${transacao.valor}`;
+        valorTexto.style.color = "#de062d";
+
+        contadorDespesa += transacao.valor;
+        contadorSaldo -= transacao.valor;
+        valorDespesa.textContent = contadorDespesa;
+        valorSaldo.textContent = contadorSaldo
+    }
+
+    li.appendChild(descricaoTexto);
+    li.appendChild(valorTexto);
+    lista.appendChild(li);
+    });
+}
+
+carregarHistorico();

@@ -8,151 +8,150 @@
   --receita: #37f4b5;
 }
 
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
+body{
     background-color: var(--bg);
     color: var(--text);
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-.title {
-    width: 80%;
-    margin: 0 auto;
-    border-bottom: 1px solid var(--text);
+/* GRID PRINCIPAL */
+section#allSection{
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: 100vh;
 }
 
-.title h1 {
-    font-size: 2.5em;
-    text-align: center;
-    margin-top: 15px;
-    padding-bottom: 15px;
+/* SIDEBAR */
+header#ficha{
+    background-color: var(--primary);
+    padding: 30px 20px;
+    min-height: 100vh;
 }
 
-main {
-    gap: 30px;
+/* MENU */
+header#ficha ul{
     display: flex;
     flex-direction: column;
-    width: 90%;
-    margin: 20px auto;
-    align-items: center;
+    gap: 20px;
 }
 
-ul {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 5px;
+header#ficha li{
+    list-style: none;
 }
 
-header#ficha {
-    padding: 20px;
-    margin: 15px;
-    background-color: var(--primary);
-    border-radius: 50px;
-    width: 800px;
-}
-
-header#ficha li {
-    list-style-type: none;
-}
-
-header#ficha a {
+header#ficha a{
     color: var(--bg);
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s;
 }
 
 header#ficha a:hover{
     background-color: var(--bg);
     color: var(--primary);
-    padding: 8px;
-    border-radius: 15px;
 }
 
-.content {
+/* CONTEÚDO */
+main{
+    padding: 30px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 50px;
+    gap: 40px;
 }
 
-div#RCPContainer {
+/* TÍTULO */
+.title{
+    border-bottom: 1px solid var(--text);
+    padding-bottom: 15px;
+}
+
+.title h1{
+    font-size: 2.5em;
+}
+
+/* CARDS */
+div#RCPContainer{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+div#RCPContainer .rcp{
+    height: 120px;
+    border-radius: 20px;
+    background-color: var(--card);
+
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    gap: 70px;
-    margin-top: 50px;
-
-}
-
-div#RCPContainer .rcp {
-    align-content: space-between;
-    height: 100px;
-    width: 200px;
-    border-radius: 20px;
-    background-color: var(--card);
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
     align-items: center;
+    gap: 10px;
 }
 
-div#formContainer {
-    justify-self: center;
-    margin-top: 100px;
-    width: 800px;
+/* FORM */
+div#formContainer{
     background-color: var(--card);
     border-radius: 20px;
+    padding: 20px;
 }
 
-div#formContainer form {
-    padding: 20px;
+div#formContainer form{
     display: flex;
     flex-direction: column;
-    align-content: center;
-    flex-wrap: wrap;
+    gap: 15px;
 }
 
-div#formContainer form input,select, button{
-    height: 35px;
-    width: 600px;
+div#formContainer form input,
+div#formContainer form select,
+div#formContainer form button{
+    height: 40px;
+    width: 100%;
     border-radius: 10px;
     border: 2px solid var(--primary);
     outline: none;
+    padding: 10px;
 }
 
-button {
+/* BOTÃO */
+button{
     background-color: var(--primary);
     color: var(--bg);
+    cursor: pointer;
+    transition: 0.3s;
 }
+
 button:hover{
     background-color: var(--bg);
     color: var(--primary);
 }
 
-div#listContainer {
-    width: 800px;
+/* HISTÓRICO */
+div#listContainer{
     background-color: var(--card);
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
     border-radius: 20px;
+    padding: 20px;
 }
 
-div#listContainer h2 {
-    color: var(--primary);
-    margin: 20px auto 20px auto;
+div#listContainer h2{
     text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary);
 }
 
 div#listContainer ul#historicoLista{
     display: flex;
     flex-direction: column;
-    align-items: start;
-    padding: 5px 35px 5px 35px;
+    gap: 10px;
+    align-items: flex-start;
 }
