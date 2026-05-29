@@ -29,6 +29,11 @@ addBtn.addEventListener("click", (event) => {
     var valorInput = Number(valor.value);
     var categoriaInput = categoria.value;
 
+    if(descricaoInput.trim() === ""){
+    alert("Escreva uma descrição!");
+    return;
+}
+
     const transacao = {
         descricao: descricaoInput,
         valor: valorInput,
@@ -79,45 +84,54 @@ addBtn.addEventListener("click", (event) => {
 
 // localstorage
 function carregarHistorico() {
+
+    const lista = document.querySelector("#historicoLista");
+
+    // limpa a lista antes
+    lista.innerHTML = "";
+
+    // zera os contadores
+    contadorReceita = 0;
+    contadorDespesa = 0;
+    contadorSaldo = 0;
+
     historicoSalvo.forEach((transacao) => {
-    let contadorReceita = 0;
-    let contadorDespesa = 0;
-    let contadorSaldo = 0;
-    var lista = document.querySelector("#historicoLista");
-    var li = document.createElement("li");
 
-    // concatenação e criação dentro do histórico
-    const descricaoTexto = document.createElement("span");
-    descricaoTexto.textContent = transacao.descricao + " - ";
+        const li = document.createElement("li");
 
-    const valorTexto = document.createElement("span");
+        const descricaoTexto = document.createElement("span");
+        descricaoTexto.textContent = transacao.descricao + " - ";
 
-    if(transacao.categoria === "receita"){
-        valorTexto.textContent = `+ R$ ${transacao.valor}`;
-        valorTexto.style.color = "#37f4b5";
+        const valorTexto = document.createElement("span");
 
-        contadorReceita += transacao.valor;
-        contadorSaldo += transacao.valor;
-        valorReceita.textContent = contadorReceita;
-        valorSaldo.textContent = contadorSaldo;
-    }
+        if(transacao.categoria === "receita"){
 
-    if(transacao.categoria === "despesa"){
-        valorTexto.textContent = `- R$ ${transacao.valor}`;
-        valorTexto.style.color = "#de062d";
+            valorTexto.textContent = `+ R$ ${transacao.valor}`;
+            valorTexto.style.color = "#37f4b5";
 
-        contadorDespesa += transacao.valor;
-        contadorSaldo -= transacao.valor;
-        valorDespesa.textContent = contadorDespesa;
-        valorSaldo.textContent = contadorSaldo
-    }
+            contadorReceita += transacao.valor;
+            contadorSaldo += transacao.valor;
+        }
 
-    li.appendChild(descricaoTexto);
-    li.appendChild(valorTexto);
-    lista.appendChild(li);
+        if(transacao.categoria === "despesa"){
+
+            valorTexto.textContent = `- R$ ${transacao.valor}`;
+            valorTexto.style.color = "#de062d";
+
+            contadorDespesa += transacao.valor;
+            contadorSaldo -= transacao.valor;
+        }
+
+        li.appendChild(descricaoTexto);
+        li.appendChild(valorTexto);
+        lista.appendChild(li);
     });
-}
 
+    // atualiza cards
+    valorReceita.textContent = contadorReceita;
+    valorDespesa.textContent = contadorDespesa;
+    valorSaldo.textContent = contadorSaldo;
+}
 carregarHistorico();
 
 // menu
@@ -127,3 +141,86 @@ const menu = document.getElementById("menu");
 menuIcon.addEventListener("click", () => {
     menu.classList.toggle("active");
 });
+
+// tema escuro
+const btnEscuro = document.getElementById("btn-escuro");
+const body = document.body;
+
+const temaSalvo = localStorage.getItem('tema');
+temaEscuro(temaSalvo === 'darkmode');
+
+function temaEscuro(tipo) {
+    if(tipo == true){
+        body.classList.add('darkmode');
+        btnEscuro.innerHTML = '<i class="fa-solid fa-sun"></i> Light Theme';
+    }
+    else {
+        body.classList.remove('darkmode');
+        btnEscuro.innerHTML = '<i class="fa-solid fa-moon"></i> DarkLight Theme';
+    }
+}
+
+btnEscuro.addEventListener("click", () => {
+    const isEscuro = body.classList.toggle('escuro');
+    temaEscuro(isEscuro);
+    localStorage.setItem('tema', isEscuro ? 'escuro' : 'claro');
+});
+
+const inicioBtn = document.getElementById("inicioBtn");
+const entradaBtn = document.getElementById("entradaBtn");
+const saidaBtn = document.getElementById("saidaBtn");
+const listaBtn = document.getElementById("listaBtn");
+
+const cardsSection = document.getElementById("RCPContainer");
+const formContainer = document.getElementById("formContainer");
+const listContainer = document.getElementById("listContainer");
+
+function esconderTudo(){
+    cardsSection.style.display = "none";
+    formContainer.style.display = "none";
+}
+
+inicioBtn.addEventListener("click", () => {
+
+    cardsSection.style.display = "grid";
+    formContainer.style.display = "block";
+
+    carregarHistorico();
+
+});
+
+entradaBtn.addEventListener("click", () => {
+    esconderTudo();
+
+    const lista = document.getElementById('historicoLista')
+    lista.innerHTML = "";
+    historicoSalvo.forEach((transacao) => {
+        if(transacao.categoria === "receita"){
+            const li = document.createElement('li');
+            li.innerHTML = `${transacao.descricao} - <span style="color: #37f4b5"> + R$ ${transacao.valor}</span>`;
+            lista.appendChild(li);
+            historicoSalvo.filter(item => item.categoria === "receita")
+        }
+    });
+});
+
+saidaBtn.addEventListener("click", () => {
+    esconderTudo();
+
+    const lista = document.getElementById('historicoLista');
+    lista.innerHTML = "";
+    historicoSalvo.forEach((transacao) => {
+        if(transacao.categoria === 'despesa'){
+            const li = document.createElement('li');
+            li.innerHTML = `${transacao.descricao} - <span style="color: #de062d"> + R$ ${transacao.valor}</span> `;
+            lista.appendChild(li);
+            historicoSalvo.filter(item => item.categoria === "despesa");
+        }
+    })
+});
+
+listaBtn.addEventListener("click", () => {
+    esconderTudo();
+    carregarHistorico();
+});
+

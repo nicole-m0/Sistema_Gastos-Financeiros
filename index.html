@@ -17,15 +17,18 @@
 
         <!-- SIDEBAR -->
         <header id="ficha">
-            <i class="fa-solid fa-bars" id="menuIcon"></i>
-            <input type="text" placeholder="🔎︎ Pesquisar">
+            <div class="topSidebar">
+                <i class="fa-solid fa-bars" id="menuIcon"></i>
+                <input type="text" placeholder="🔎︎ Pesquisar">
+            </div>
             <nav id="menu">
                 <ul id="ulFicha">
-                    <li><a href="#"><i class="fa-solid fa-moon"></i>DarkLight Theme</a></li>
-                    <li><a href="#"><i class="fa-solid fa-arrow-up"></i>Entradas</a></li>
-                    <li><a href="#"><i class="fa-solid fa-arrow-down"></i>Saídas</a></li>
-                    <li><a href="#"><i class="fa-solid fa-list"></i>Lista Completa</a></li>
-                    <li><a href="#"><i class="fa-solid fa-file-arrow-down"></i>Exportar PDF</a></li>
+                    <li><a href="#" id="btn-escuro"><i class="fa-solid fa-moon"></i>DarkLight Theme</a></li>
+                    <li><a href="#" id="inicioBtn" ><i class="fa-solid fa-house"></i>Inicio</a></li>
+                    <li><a href="#" id="entradaBtn" ><i class="fa-solid fa-arrow-up"></i>Entradas</a></li>
+                    <li><a href="#" id="saidaBtn" ><i class="fa-solid fa-arrow-down"></i>Saídas</a></li>
+                    <li><a href="#" id="listaBtn" ><i class="fa-solid fa-list"></i>Lista Completa</a></li>
+                    <li><a href="#" id="pdfBtn" ><i class="fa-solid fa-file-arrow-down"></i>Exportar PDF</a></li>
                 </ul>
             </nav>
 
@@ -55,9 +58,9 @@
                 </div>
 
                 <div id="saldoTotal" class="rcp">
-                    <i class="fa-solid fa-sack-dollar" style="color: #3f194d;"></i>
+                    <i class="fa-solid fa-sack-dollar"></i>
                     <p>Saldo Total</p>
-                    <p id="valorSaldo" style="color: #3f194d;">0</p>
+                    <p id="valorSaldo">0</p>
                 </div>
 
             </div>
@@ -79,11 +82,7 @@
                     <label for="valor">Valor (R$):</label>
 
                     <input
-                        type="number"
-                        name="valor"
-                        id="valor"
-                        placeholder="0,00"
-                    >
+                        type="number" name="valor" id="valor" placeholder="0,00" >
 
                     <label for="categoria">Categoria</label>
 
@@ -93,9 +92,7 @@
                     </select>
 
                     <button id="btnAdd">
-                        <i class="fa-solid fa-plus"></i>
-                        Adicionar
-                    </button>
+                        <i class="fa-solid fa-plus"></i>Adicionar</button>
 
                 </form>
 

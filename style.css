@@ -1,11 +1,13 @@
 :root{
+  /* TEMA CLARO */
   --bg: #F3E8FF;
   --card: #FFFFFF;
-  --primary: #3f194d;
+  --primary: #7C3AED;
+  --primary-hover: #8B5CF6;
   --text: #2D3748;
   --text-secondary: #718096;
-  --despesa: #de062d;
-  --receita: #37f4b5;
+  --green: #34D399;
+  --red: #FB7185;
 }
 
 *{
@@ -20,6 +22,18 @@ body{
     overflow-x: hidden;
 }
 
+/* DARK MODE */
+body.darkmode{
+  --bg: #18181B;
+  --card: #27272A;
+  --primary: #7C3AED;
+  --primary-hover: #8B5CF6;
+  --text: #FAFAFA;
+  --text-secondary: #A1A1AA;
+  --green: #34D399;
+  --red: #FB7185;
+}
+
 /* GRID PRINCIPAL */
 section#allSection{
     display: flex;
@@ -28,9 +42,23 @@ section#allSection{
 
 /* SIDEBAR */
 header#ficha{
-    background-color: var(--primary);
+    background: linear-gradient(
+        180deg,
+        #6D28D9,
+        #7C3AED,
+        #8B5CF6
+    );
+
     padding: 30px 20px;
 }
+
+.topSidebar{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
 
 /* MENU */
 header#ficha ul{
@@ -43,13 +71,15 @@ header#ficha li{
     list-style: none;
 }
 
-header#ficha #menuIcon {
-    color: var(--bg);
-    font-size: 1.3em;
+header#ficha #menuIcon{
+    color: white;
+    font-size: 1.4em;
+    cursor: pointer;
 }
 
 #menu{
     display: none;
+    
 }
 
 #menu.active{
@@ -57,34 +87,48 @@ header#ficha #menuIcon {
 }
 
 header#ficha input{
-    background-color: var(--bg);
+    background-color: var(--card);
+    color: var(--text);
+
     padding: 10px;
     margin-bottom: 10px;
+
     border-radius: 10px;
-    border: 2px solid var(--primary);
+    border: 2px solid transparent;
+
     outline: none;
     width: 400px;
+
+    transition: 0.3s;
+}
+
+header#ficha input:focus{
+    border: 2px solid var(--primary);
 }
 
 header#ficha a{
     color: var(--bg);
+
     text-decoration: none;
+
     display: flex;
     align-items: center;
     gap: 10px;
+
     padding: 10px;
     border-radius: 10px;
+
     transition: 0.3s;
 }
 
 header#ficha a:hover{
-    background-color: var(--bg);
-    color: var(--primary);
+    background-color: rgba(255,255,255,0.15);
 }
 
 /* CONTEÚDO */
 main{
     padding: 30px;
+
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -92,7 +136,7 @@ main{
 
 /* TÍTULO */
 .title{
-    border-bottom: 1px solid var(--text);
+    border-bottom: 1px solid var(--text-secondary);
     padding-bottom: 15px;
 }
 
@@ -109,6 +153,7 @@ div#RCPContainer{
 
 div#RCPContainer .rcp{
     height: 120px;
+
     border-radius: 20px;
     background-color: var(--card);
 
@@ -117,11 +162,27 @@ div#RCPContainer .rcp{
     justify-content: center;
     align-items: center;
     gap: 10px;
+
+    transition: 0.3s;
+}
+
+div#RCPContainer .rcp:hover{
+    transform: translateY(-3px);
+}
+
+div#RCPContainer .rcp p{
+    color: var(--text-secondary);
+}
+
+#saldoTotal i,
+#saldoTotal #valorSaldo{
+    color: var(--primary);
 }
 
 /* FORM */
 div#formContainer{
     background-color: var(--card);
+
     border-radius: 20px;
     padding: 20px;
 }
@@ -137,28 +198,46 @@ div#formContainer form select,
 div#formContainer form button{
     height: 40px;
     width: 100%;
+
     border-radius: 10px;
-    border: 2px solid var(--primary);
+
+    border: 2px solid transparent;
+
     outline: none;
+
     padding: 10px;
+
+    transition: 0.3s;
+}
+
+div#formContainer form input,
+div#formContainer form select{
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+div#formContainer form input:focus,
+div#formContainer form select:focus{
+    border: 2px solid var(--primary);
 }
 
 /* BOTÃO */
 button{
     background-color: var(--primary);
-    color: var(--bg);
+    color: #fff;
+
     cursor: pointer;
     transition: 0.3s;
 }
 
 button:hover{
-    background-color: var(--bg);
-    color: var(--primary);
+    background-color: var(--primary-hover);
 }
 
 /* HISTÓRICO */
 div#listContainer{
     background-color: var(--card);
+
     border-radius: 20px;
     padding: 20px;
 }
@@ -166,6 +245,7 @@ div#listContainer{
 div#listContainer h2{
     text-align: center;
     margin-bottom: 20px;
+
     color: var(--primary);
 }
 
@@ -173,18 +253,32 @@ div#listContainer ul#historicoLista{
     display: flex;
     flex-direction: column;
     gap: 10px;
+
     align-items: flex-start;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (max-width: 991px){
 
-    body {
+    div#RCPContainer{
+        grid-template-columns: 1fr;
+    }
+
+    header#ficha input{
+        width: 100%;
+    }
+
+}
+
+@media screen and (min-width: 992px){
+
+    body{
         min-height: 100vh;
     }
 
     section#allSection{
         display: grid;
         grid-template-columns: 250px 1fr;
+
         min-height: 100vh;
     }
 
