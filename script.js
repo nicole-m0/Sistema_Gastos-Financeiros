@@ -224,3 +224,22 @@ listaBtn.addEventListener("click", () => {
     carregarHistorico();
 });
 
+// exportar pdf
+
+const btnPDF = document.querySelector("#pdfBtn");
+
+btnPDF.addEventListener("click", () => {
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    doc.text("Relatório Financeiro", 20, 20);
+
+    doc.text(`Receitas: R$ ${contadorReceita}`, 20, 40);
+    doc.text(`Despesas: R$ ${contadorDespesa}`, 20, 50);
+    doc.text(`Saldo: R$ ${contadorSaldo}`, 20, 60);
+
+    doc.save("relatorio.pdf");
+
+});
