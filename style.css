@@ -1,13 +1,15 @@
 :root{
-  /* TEMA CLARO */
-  --bg: #F3E8FF;
+  --bg: #F8FAFC;
   --card: #FFFFFF;
-  --primary: #7C3AED;
-  --primary-hover: #8B5CF6;
-  --text: #2D3748;
-  --text-secondary: #718096;
-  --green: #34D399;
-  --red: #FB7185;
+
+  --primary: #2563EB;
+  --primary-hover: #3B82F6;
+
+  --text: #0F172A;
+  --text-secondary: #64748B;
+
+  --green: #22C55E;
+  --red: #EF4444;
 }
 
 *{
@@ -24,14 +26,17 @@ body{
 
 /* DARK MODE */
 body.darkmode{
-  --bg: #18181B;
-  --card: #27272A;
-  --primary: #7C3AED;
-  --primary-hover: #8B5CF6;
-  --text: #FAFAFA;
-  --text-secondary: #A1A1AA;
-  --green: #34D399;
-  --red: #FB7185;
+  --bg: #0F172A;
+  --card: #1E293B;
+
+  --primary: #3B82F6;
+  --primary-hover: #60A5FA;
+
+  --text: #F8FAFC;
+  --text-secondary: #94A3B8;
+
+  --green: #22C55E;
+  --red: #EF4444;
 }
 
 /* GRID PRINCIPAL */
@@ -43,11 +48,11 @@ section#allSection{
 /* SIDEBAR */
 header#ficha{
     background: linear-gradient(
-        180deg,
-        #6D28D9,
-        #7C3AED,
-        #8B5CF6
-    );
+    180deg,
+    #1E3A8A,
+    #2563EB,
+    #3B82F6
+);
 
     padding: 30px 20px;
 }
