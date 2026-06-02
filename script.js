@@ -10,6 +10,8 @@ let contadorReceita = 0;
 let contadorDespesa = 0;
 let contadorSaldo = 0;
 
+let indiceEditado = null;
+
 var historicoSalvo = JSON.parse(localStorage.getItem("historicoLista")) || [];
 
 // Adicionar receita/despesa
@@ -40,8 +42,16 @@ addBtn.addEventListener("click", (event) => {
         categoria: categoriaInput
     }
 
-    historicoSalvo.push(transacao);
+    if (indiceEditado !== null) {
+    historicoSalvo[indiceEditado] = transacao;
+    indiceEditado = null;
+    addBtn.innerHTML ='<i class="fa-solid fa-plus"></i> Adicionar';
+    } else {
+        historicoSalvo.push(transacao);
+    }
+
     localStorage.setItem("historicoLista", JSON.stringify(historicoSalvo));
+    carregarHistorico();
 
     // concatenação e criação dentro do histórico
     const descricaoTexto = document.createElement("span");
@@ -72,10 +82,7 @@ addBtn.addEventListener("click", (event) => {
         valorSaldo.textContent = contadorSaldo
     }
 
-    li.appendChild(descricaoTexto);
-    li.appendChild(valorTexto);
-
-    lista.appendChild(li);
+    carregarHistorico();
 
     descricao.value = "";
     valor.value = "";
@@ -95,7 +102,7 @@ function carregarHistorico() {
     contadorDespesa = 0;
     contadorSaldo = 0;
 
-    historicoSalvo.forEach((transacao) => {
+    historicoSalvo.forEach((transacao, indice) => {
 
         const li = document.createElement("li");
 
@@ -104,6 +111,64 @@ function carregarHistorico() {
 
         const valorTexto = document.createElement("span");
 
+    const btnExcluir = document.createElement('span');
+    btnExcluir.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+    btnExcluir.style.cursor = "pointer";
+    btnExcluir.style.marginLeft = "10px";
+    btnExcluir.style.color = "#3B82F6";
+    btnExcluir.title = "Excluir";
+
+    btnExcluir.addEventListener('click', () => {
+        const confirmed = confirm("Deseja remover esse item?");
+        if(confirmed){
+            historicoSalvo.splice(indice, 1);
+
+        localStorage.setItem(
+            "historicoLista",
+            JSON.stringify(historicoSalvo)
+        );
+        carregarHistorico();
+        }
+    })
+
+    const btnEditar = document.createElement('span');
+    btnEditar.innerHTML = '<i class="fa-solid fa-pencil"></i>';
+    btnEditar.style.cursor = "pointer";
+    btnEditar.style.marginLeft = "10px";
+    btnEditar.style.color = "#3B82F6";
+    btnEditar.title = "Editar";
+
+    btnEditar.addEventListener('click', () => {
+        descricao.value = transacao.descricao;
+        valor.value = transacao.valor;
+        categoria.value = transacao.categoria;
+
+        indiceEditado = indice;
+        addBtn.innerHTML = "💾 Salvar Alterações";
+
+        if (indiceEditado !== null) {
+            historicoSalvo[indiceEditado] = {
+                descricao: descricaoInput,
+                valor: valorInput,
+                categoria: categoriaInput
+            };
+        } else {
+            historicoSalvo.push({
+                descricao: descricaoInput,
+                valor: valorInput,
+                categoria: categoriaInput
+            });
+        }
+
+        localStorage.setItem(
+            "historicoLista",
+            JSON.stringify(historicoSalvo)
+        )
+        carregarHistorico();
+        indiceEditado = null;
+    })
+
+    // receita / despesa 
         if(transacao.categoria === "receita"){
 
             valorTexto.textContent = `+ R$ ${transacao.valor}`;
@@ -124,6 +189,8 @@ function carregarHistorico() {
 
         li.appendChild(descricaoTexto);
         li.appendChild(valorTexto);
+        li.appendChild(btnExcluir);
+        li.appendChild(btnEditar);
         lista.appendChild(li);
     });
 
@@ -131,7 +198,8 @@ function carregarHistorico() {
     valorReceita.textContent = contadorReceita;
     valorDespesa.textContent = contadorDespesa;
     valorSaldo.textContent = contadorSaldo;
-}
+
+ }
 carregarHistorico();
 
 // menu
