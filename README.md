@@ -21,8 +21,13 @@ https://nicole-m0.github.io/Sistema_Gastos-Financeiros/
 
 ## 🛠️ Tecnologias Utilizadas
 
-<p align="left">
-  <img src="https://skillicons.dev/icons?i=html,css,js,vscode,git,github" />
+<p align="center">
+<img src="https://img.shields.io/badge/JavaScript-D9B51F?style=for-the-badge&logo=javascript&logoColor=black"/>
+<img src="https://img.shields.io/badge/HTML5-C96C5B?style=for-the-badge&logo=html5&logoColor=white"/>
+<img src="https://img.shields.io/badge/CSS3-5B9BD5?style=for-the-badge&logo=css3&logoColor=white"/>
+<img src="https://img.shields.io/badge/Git-D97A66?style=for-the-badge&logo=git&logoColor=white"/>
+<img src="https://img.shields.io/badge/GitHub-5B5B5B?style=for-the-badge&logo=github&logoColor=white"/>
+<img src="https://img.shields.io/badge/VS_Code-6A9ED6?style=for-the-badge&logo=visualstudiocode&logoColor=white"/>
 </p>
 
 ## 📂 Como Executar
