@@ -33,12 +33,7 @@ git clone https://github.com/Nicole-M0/Sistema_Gastos-Financeiros.git
 
 Abra o arquivo `index.html` no navegador ou utilize a extensão **Live Server** do VS Code.
 
-## 👩‍💻 Desenvolvido por
-
-Nicole Mendes
-
-🔗 GitHub:
-https://github.com/Nicole-M0
+--- 
 
 <p align="center">
   <img src="prototipoGastosFin.png" width="800">
