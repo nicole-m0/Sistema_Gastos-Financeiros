@@ -18,74 +18,47 @@ var historicoSalvo = JSON.parse(localStorage.getItem("historicoLista")) || [];
 const addBtn = document.querySelector("#btnAdd");
 
 addBtn.addEventListener("click", (event) => {
+
     event.preventDefault();
-    // lista e histórico
-    var lista = document.querySelector("#historicoLista");
-    var li = document.createElement("li");
-    // inputs - DOM
-    var descricao = document.querySelector("#descricao");
-    var valor = document.querySelector("#valor");
-    var categoria = document.querySelector("#categoria");
-    // valor digitado
-    var descricaoInput = descricao.value;
-    var valorInput = Number(valor.value);
-    var categoriaInput = categoria.value;
+
+    const descricaoInput = descricao.value;
+    const valorInput = Number(valor.value);
+    const categoriaInput = categoria.value;
 
     if(descricaoInput.trim() === ""){
-    alert("Escreva uma descrição!");
-    return;
-}
+        alert("Escreva uma descrição!");
+        return;
+    }
 
     const transacao = {
         descricao: descricaoInput,
         valor: valorInput,
         categoria: categoriaInput
+    };
+
+    // EDITANDO
+    if(indiceEditado !== null){
+        historicoSalvo[indiceEditado] = transacao;
+        indiceEditado = null;
+        addBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Adicionar';
     }
 
-    if (indiceEditado !== null) {
-    historicoSalvo[indiceEditado] = transacao;
-    indiceEditado = null;
-    addBtn.innerHTML ='<i class="fa-solid fa-plus"></i> Adicionar';
-    } else {
+    // ADICIONANDO
+    else{
         historicoSalvo.push(transacao);
     }
 
-    localStorage.setItem("historicoLista", JSON.stringify(historicoSalvo));
-    carregarHistorico();
-
-    // concatenação e criação dentro do histórico
-    const descricaoTexto = document.createElement("span");
-    descricaoTexto.textContent = descricaoInput + " - ";
-
-    const valorTexto = document.createElement("span");
-
-    console.log(valorInput);
-    console.log(categoriaInput);
-
-    if(categoriaInput === "receita"){
-        valorTexto.textContent = `+ R$ ${valorInput}`;
-        valorTexto.style.color = "#37f4b5";
-
-        contadorReceita += valorInput;
-        contadorSaldo += valorInput;
-        valorReceita.textContent = contadorReceita;
-        valorSaldo.textContent = contadorSaldo;
-    }
-
-    if(categoriaInput === "despesa"){
-        valorTexto.textContent = `- R$ ${valorInput}`;
-        valorTexto.style.color = "#de062d";
-
-        contadorDespesa += valorInput;
-        contadorSaldo -= valorInput;
-        valorDespesa.textContent = contadorDespesa;
-        valorSaldo.textContent = contadorSaldo
-    }
+    localStorage.setItem(
+        "historicoLista",
+        JSON.stringify(historicoSalvo)
+    );
 
     carregarHistorico();
 
     descricao.value = "";
     valor.value = "";
+    categoria.value = "receita";
+
 });
 
 
@@ -132,41 +105,20 @@ function carregarHistorico() {
     })
 
     const btnEditar = document.createElement('span');
-    btnEditar.innerHTML = '<i class="fa-solid fa-pencil"></i>';
-    btnEditar.style.cursor = "pointer";
-    btnEditar.style.marginLeft = "10px";
-    btnEditar.style.color = "#3B82F6";
-    btnEditar.title = "Editar";
+        btnEditar.innerHTML = '<i class="fa-solid fa-pencil"></i>';
+        btnEditar.style.cursor = "pointer";
+        btnEditar.style.marginLeft = "10px";
+        btnEditar.style.color = "#3B82F6";
+        btnEditar.title = "Editar";
 
-    btnEditar.addEventListener('click', () => {
+        btnEditar.addEventListener('click', () => {
         descricao.value = transacao.descricao;
         valor.value = transacao.valor;
         categoria.value = transacao.categoria;
 
         indiceEditado = indice;
         addBtn.innerHTML = "💾 Salvar Alterações";
-
-        if (indiceEditado !== null) {
-            historicoSalvo[indiceEditado] = {
-                descricao: descricaoInput,
-                valor: valorInput,
-                categoria: categoriaInput
-            };
-        } else {
-            historicoSalvo.push({
-                descricao: descricaoInput,
-                valor: valorInput,
-                categoria: categoriaInput
-            });
-        }
-
-        localStorage.setItem(
-            "historicoLista",
-            JSON.stringify(historicoSalvo)
-        )
-        carregarHistorico();
-        indiceEditado = null;
-    })
+    });
 
     // receita / despesa 
         if(transacao.categoria === "receita"){
