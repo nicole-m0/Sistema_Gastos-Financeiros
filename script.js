@@ -2,6 +2,9 @@
 // se  adicionado despesa: diminui em despesa e saldo
 // se adicionado receita: soma em receita e saldo
 
+const descricao = document.querySelector('#descricao');
+const valor = document.querySelector('#valor');
+const categoria = document.querySelector('#categoria');
 
 const valorReceita = document.querySelector("#valorReceita");
 const valorDespesa = document.querySelector("#valorDespesa");
@@ -28,6 +31,11 @@ addBtn.addEventListener("click", (event) => {
     if(descricaoInput.trim() === ""){
         alert("Escreva uma descrição!");
         return;
+    }
+
+    if(valorInput <= 0 || isNaN(valorInput)){
+    alert("Digite um valor válido!");
+    return;
     }
 
     const transacao = {
@@ -117,7 +125,7 @@ function carregarHistorico() {
         categoria.value = transacao.categoria;
 
         indiceEditado = indice;
-        addBtn.innerHTML = "💾 Salvar Alterações";
+        addBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar Alterações';
     });
 
     // receita / despesa 
@@ -181,9 +189,10 @@ function temaEscuro(tipo) {
 }
 
 btnEscuro.addEventListener("click", () => {
-    const isEscuro = body.classList.toggle('escuro');
+    const isEscuro = body.classList.toggle('darkmode');
     temaEscuro(isEscuro);
-    localStorage.setItem('tema', isEscuro ? 'escuro' : 'claro');
+    localStorage.setItem('tema', isEscuro ? 'darkmode' : 'claro'
+    );
 });
 
 const inicioBtn = document.getElementById("inicioBtn");
@@ -219,7 +228,6 @@ entradaBtn.addEventListener("click", () => {
             const li = document.createElement('li');
             li.innerHTML = `${transacao.descricao} - <span style="color: #37f4b5"> + R$ ${transacao.valor}</span>`;
             lista.appendChild(li);
-            historicoSalvo.filter(item => item.categoria === "receita")
         }
     });
 });
@@ -234,7 +242,6 @@ saidaBtn.addEventListener("click", () => {
             const li = document.createElement('li');
             li.innerHTML = `${transacao.descricao} - <span style="color: #de062d"> + R$ ${transacao.valor}</span> `;
             lista.appendChild(li);
-            historicoSalvo.filter(item => item.categoria === "despesa");
         }
     })
 });
@@ -251,15 +258,66 @@ const btnPDF = document.querySelector("#pdfBtn");
 btnPDF.addEventListener("click", () => {
 
     const { jsPDF } = window.jspdf;
-
     const doc = new jsPDF();
 
-    doc.text("Relatório Financeiro", 20, 20);
+    // Título
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(20);
+    doc.text("RELATÓRIO FINANCEIRO", 105, 20, { align: "center" });
 
-    doc.text(`Receitas: R$ ${contadorReceita}`, 20, 40);
-    doc.text(`Despesas: R$ ${contadorDespesa}`, 20, 50);
-    doc.text(`Saldo: R$ ${contadorSaldo}`, 20, 60);
+    // Linha decorativa
+    doc.line(20, 28, 190, 28);
 
-    doc.save("relatorio.pdf");
+    // Data
+    const dataAtual = new Date().toLocaleDateString("pt-BR");
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Gerado em: ${dataAtual}`, 20, 40);
 
+    // Resumo
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text("Resumo Financeiro", 20, 55);
+
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+
+    doc.text(`Receitas: R$ ${contadorReceita}`, 25, 70);
+    doc.text(`Despesas: R$ ${contadorDespesa}`, 25, 80);
+    doc.text(`Saldo Total: R$ ${contadorSaldo}`, 25, 90);
+
+    // Linha separadora
+    doc.line(20, 100, 190, 100);
+
+    // Histórico
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text("Histórico de Transações", 20, 115);
+
+    let y = 130;
+
+    historicoSalvo.forEach((transacao) => {
+
+        const sinal =
+            transacao.categoria === "receita" ? "+" : "-";
+
+        doc.setFontSize(11);
+        doc.setFont("helvetica", "normal");
+
+        doc.text(
+            `${transacao.descricao} | ${sinal} R$ ${transacao.valor}`,
+            25,
+            y
+        );
+
+        y += 10;
+
+        // Nova página se necessário
+        if (y > 270) {
+            doc.addPage();
+            y = 20;
+        }
+    });
+
+    doc.save("relatorio_financeiro.pdf");
 });
