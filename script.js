@@ -321,3 +321,26 @@ btnPDF.addEventListener("click", () => {
 
     doc.save("relatorio_financeiro.pdf");
 });
+
+const pesquisa = document.getElementById("pesquisa");
+
+pesquisa.addEventListener("input", () => {
+
+    const termo = pesquisa.value.toLowerCase();
+
+    const itens = document.querySelectorAll("#historicoLista li");
+
+    itens.forEach(item => {
+
+        const texto = item.textContent.toLowerCase();
+
+        if(texto.includes(termo)){
+            item.style.display = "";
+        }
+        else{
+            item.style.display = "none";
+        }
+
+    });
+
+});
